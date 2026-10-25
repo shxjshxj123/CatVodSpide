@@ -68,16 +68,26 @@ public class Relang extends Spider {
         String name = "";
         String pic = "";
         String desc = "";
-        String m3u8 = "";
+        int epCount = 0;
 
         if (flat != null) {
             name = resolveKey(flat, "title");
             pic = resolveKey(flat, "cover");
             if (TextUtils.isEmpty(pic)) pic = resolveKey(flat, "share_cover");
             desc = resolveKey(flat, "description");
-            m3u8 = resolveKey(flat, "play_url");
+            epCount = resolveKeyInt(flat, "episodes");
+            if (epCount == 0) epCount = 1;
         }
-        if (TextUtils.isEmpty(m3u8)) m3u8 = extractM3u8(html);
+
+        StringBuilder playUrl = new StringBuilder();
+        for (int ep = 1; ep <= epCount; ep++) {
+            String epUrl = ep == 1
+                    ? url + "drama/video/" + id + "/"
+                    : url + "drama/video/" + id + "/ep-" + ep + "/";
+            String m3u8 = extractEpisodeM3u8(epUrl, id);
+            if (ep > 1) playUrl.append(",");
+            playUrl.append("第" + ep + "集").append("$").append(id + "|" + ep + "|" + m3u8);
+        }
 
         Vod vod = new Vod();
         vod.setVodId(id);
@@ -85,9 +95,42 @@ public class Relang extends Spider {
         vod.setVodPic(pic);
         vod.setVodContent(desc);
         vod.setTypeName("热浪短剧");
+        vod.setVodRemarks(epCount + "集");
         vod.setVodPlayFrom("热浪短剧");
-        vod.setVodPlayUrl("播放$" + id + "|" + m3u8);
+        vod.setVodPlayUrl("热浪短剧$" + playUrl);
         return Result.string(vod);
+    }
+
+    private int resolveKeyInt(JSONArray flat, String key) {
+        for (int i = 0; i < flat.length(); i++) {
+            try {
+                Object o = flat.get(i);
+                if (!(o instanceof JSONObject)) continue;
+                JSONObject obj = (JSONObject) o;
+                if (!obj.has(key)) continue;
+                Object val = obj.opt(key);
+                if (val instanceof JSONArray) return ((JSONArray) val).length();
+                if (val instanceof Integer) {
+                    int idx = (Integer) val;
+                    if (idx >= 0 && idx < flat.length() && flat.get(idx) instanceof JSONArray) {
+                        return ((JSONArray) flat.get(idx)).length();
+                    }
+                    return 0;
+                }
+            } catch (Exception ignored) {
+            }
+        }
+        return 0;
+    }
+
+    private String extractEpisodeM3u8(String epUrl, String vid) throws Exception {
+        String epHtml = fetch(epUrl);
+        JSONArray epFlat = parseFlat(extractNuxtData(epHtml));
+        if (epFlat != null) {
+            String m3u8 = resolveKey(epFlat, "video_url");
+            if (!TextUtils.isEmpty(m3u8)) return m3u8;
+        }
+        return extractM3u8(epHtml);
     }
 
     @Override
@@ -113,16 +156,25 @@ public class Relang extends Spider {
         String[] parts = id.split("\\|");
         String vodId = parts[0];
         String m3u8 = parts.length > 1 ? parts[1] : "";
+        int epNum = parts.length > 2 ? parseInt(parts[2]) : 1;
+        if (TextUtils.isEmpty(m3u8) || "0".equals(m3u8)) {
+            String epUrl = epNum == 1
+                    ? url + "drama/video/" + vodId + "/"
+                    : url + "drama/video/" + vodId + "/ep-" + epNum + "/";
+            m3u8 = extractEpisodeM3u8(epUrl, vodId);
+        }
         HashMap<String, String> playHeaders = new HashMap<>();
         playHeaders.put("User-Agent", headers.get("User-Agent"));
         playHeaders.put("Referer", url);
-        if (TextUtils.isEmpty(m3u8)) {
-            String html = fetch(url + "drama-detail/" + vodId + "/");
-            JSONArray flat = parseFlat(extractNuxtData(html));
-            if (flat != null) m3u8 = resolveKey(flat, "play_url");
-            if (TextUtils.isEmpty(m3u8)) m3u8 = extractM3u8(html);
-        }
         return Result.get().url(m3u8).header(playHeaders).string();
+    }
+
+    private int parseInt(String s) {
+        try {
+            return Integer.parseInt(s);
+        } catch (Exception e) {
+            return 1;
+        }
     }
 
     private void addVods(List<Vod> list, JSONArray flat) {
