@@ -79,14 +79,9 @@ public class Relang extends Spider {
             if (epCount == 0) epCount = 1;
         }
 
-        StringBuilder playUrl = new StringBuilder();
+        List<String> episodes = new ArrayList<>();
         for (int ep = 1; ep <= epCount; ep++) {
-            String epUrl = ep == 1
-                    ? url + "drama/video/" + id + "/"
-                    : url + "drama/video/" + id + "/ep-" + ep + "/";
-            String m3u8 = extractEpisodeM3u8(epUrl, id);
-            if (ep > 1) playUrl.append(",");
-            playUrl.append("第" + ep + "集").append("$").append(id + "|" + ep + "|" + m3u8);
+            episodes.add("第" + ep + "集$" + id + "|" + ep);
         }
 
         Vod vod = new Vod();
@@ -97,7 +92,7 @@ public class Relang extends Spider {
         vod.setTypeName("热浪短剧");
         vod.setVodRemarks(epCount + "集");
         vod.setVodPlayFrom("热浪短剧");
-        vod.setVodPlayUrl("热浪短剧$" + playUrl);
+        vod.setVodPlayUrl(TextUtils.join("#", episodes));
         return Result.string(vod);
     }
 
@@ -155,14 +150,11 @@ public class Relang extends Spider {
     public String playerContent(String flag, String id, List<String> vipFlags) throws Exception {
         String[] parts = id.split("\\|");
         String vodId = parts[0];
-        String m3u8 = parts.length > 1 ? parts[1] : "";
-        int epNum = parts.length > 2 ? parseInt(parts[2]) : 1;
-        if (TextUtils.isEmpty(m3u8) || "0".equals(m3u8)) {
-            String epUrl = epNum == 1
-                    ? url + "drama/video/" + vodId + "/"
-                    : url + "drama/video/" + vodId + "/ep-" + epNum + "/";
-            m3u8 = extractEpisodeM3u8(epUrl, vodId);
-        }
+        int epNum = parts.length > 1 ? parseInt(parts[1]) : 1;
+        String epUrl = epNum == 1
+                ? url + "drama/video/" + vodId + "/"
+                : url + "drama/video/" + vodId + "/ep-" + epNum + "/";
+        String m3u8 = extractEpisodeM3u8(epUrl, vodId);
         HashMap<String, String> playHeaders = new HashMap<>();
         playHeaders.put("User-Agent", headers.get("User-Agent"));
         playHeaders.put("Referer", url);
