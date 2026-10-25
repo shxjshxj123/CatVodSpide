@@ -222,6 +222,18 @@
       "api": "csp_Push",
       "searchable": 1,
       "changeable": 0
+    },
+    {
+      "key": "热浪短剧",
+      "name": "热浪短剧",
+      "type": 3,
+      "api": "csp_Relang",
+      "searchable": 1,
+      "changeable": 0,
+      "style": {
+        "type": "rect",
+        "ratio": 1.433
+      }
     }
   ],
   "doh": [
