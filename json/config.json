@@ -234,6 +234,14 @@
         "type": "rect",
         "ratio": 1.433
       }
+    },
+    {
+      "key": "kankanya",
+      "name": "看看鸭",
+      "type": 3,
+      "api": "csp_KanKanYa",
+      "searchable": 1,
+      "changeable": 0
     }
   ],
   "doh": [
