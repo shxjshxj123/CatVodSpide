@@ -198,7 +198,15 @@ public class KanKanYa extends Spider {
                 String epName = link.text().trim();
                 String href = link.attr("href");
                 if (!href.contains("/play/")) continue;
-                String epNum = epName.replaceAll("[^0-9]", "");
+                // epNum 必须取自 href（显示集数与 URL 集数可能不一致，如 bLmhhk 组2: -2-28 显示第06集）
+                int m = href.indexOf("/play/");
+                int s2 = href.indexOf('-', m + 6);
+                int e2 = href.lastIndexOf(".html");
+                if (s2 < 0 || e2 <= s2) continue;
+                String tail = href.substring(s2 + 1, e2);
+                int dash = tail.lastIndexOf('-');
+                if (dash < 0) continue;
+                String epNum = tail.substring(dash + 1);
                 if (TextUtils.isEmpty(epNum)) epNum = String.valueOf(eps.size() + 1);
                 eps.add(epName + "$" + id + "|" + groupNum + "|" + epNum);
             }
@@ -251,7 +259,7 @@ public class KanKanYa extends Spider {
         Map<String, String> playHeaders = new HashMap<>();
         playHeaders.put("User-Agent", UA);
         playHeaders.put("Referer", playUrl);
-        return Result.get().m3u8().url(m3u8).header(playHeaders).string();
+        return Result.get().url(m3u8).header(playHeaders).string();
     }
 
     private int safeInt(String s, int def) {

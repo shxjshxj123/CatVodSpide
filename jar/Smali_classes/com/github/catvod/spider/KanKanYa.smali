@@ -848,7 +848,7 @@
 .end method
 
 .method public detailContent(Ljava/util/List;)Ljava/lang/String;
-    .registers 20
+    .registers 22
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
@@ -878,10 +878,10 @@
 
     move-result-object v2
 
-    move-object/from16 v3, p0
+    move-object/from16 v4, p0
 
     .line 2
-    invoke-direct {v3, v2}, Lcom/github/catvod/spider/KanKanYa;->c(Ljava/lang/String;)Ljava/lang/String;
+    invoke-direct {v4, v2}, Lcom/github/catvod/spider/KanKanYa;->c(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v2
 
@@ -890,158 +890,180 @@
 
     move-result-object v2
 
-    const-string v4, "h1"
+    const-string v5, "h1"
 
     .line 4
-    invoke-virtual {v2, v4}, Lcom/github/catvod/spider/merge/T/m;->q0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/T/m;
+    invoke-virtual {v2, v5}, Lcom/github/catvod/spider/merge/T/m;->q0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/T/m;
 
-    move-result-object v4
+    move-result-object v5
 
-    const-string v5, ""
+    const-string v6, ""
 
-    if-eqz v4, :cond_2e
+    if-eqz v5, :cond_2e
 
-    invoke-virtual {v4}, Lcom/github/catvod/spider/merge/T/m;->w0()Ljava/lang/String;
+    invoke-virtual {v5}, Lcom/github/catvod/spider/merge/T/m;->w0()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v5
 
-    invoke-virtual {v4}, Ljava/lang/String;->trim()Ljava/lang/String;
+    invoke-virtual {v5}, Ljava/lang/String;->trim()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v5
 
     goto :goto_2f
 
     :cond_2e
-    move-object v4, v5
+    move-object v5, v6
 
     :goto_2f
-    invoke-static {v4}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    invoke-static {v5}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
-    move-result v6
+    move-result v7
 
-    if-eqz v6, :cond_51
+    if-eqz v7, :cond_51
 
-    const-string v6, "title"
+    const-string v7, "title"
 
-    invoke-virtual {v2, v6}, Lcom/github/catvod/spider/merge/T/m;->q0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/T/m;
+    invoke-virtual {v2, v7}, Lcom/github/catvod/spider/merge/T/m;->q0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/T/m;
 
-    move-result-object v6
+    move-result-object v7
 
-    if-eqz v6, :cond_51
+    if-eqz v7, :cond_51
 
-    invoke-virtual {v6}, Lcom/github/catvod/spider/merge/T/m;->w0()Ljava/lang/String;
+    invoke-virtual {v7}, Lcom/github/catvod/spider/merge/T/m;->w0()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v5
 
-    const-string v6, "\u8be6\u60c5\u4ecb\u7ecd-"
+    const-string v7, "\u8be6\u60c5\u4ecb\u7ecd-"
 
-    invoke-virtual {v4, v6, v5}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
+    invoke-virtual {v5, v7, v6}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v5
 
-    const-string v6, "-\u770b\u770b\u9e2d"
+    const-string v7, "-\u770b\u770b\u9e2d"
 
-    invoke-virtual {v4, v6, v5}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
+    invoke-virtual {v5, v7, v6}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v5
 
-    invoke-virtual {v4}, Ljava/lang/String;->trim()Ljava/lang/String;
+    invoke-virtual {v5}, Ljava/lang/String;->trim()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v5
 
     :cond_51
-    const-string v6, ".module-info-poster img"
+    const-string v7, ".module-info-poster img"
 
-    invoke-virtual {v2, v6}, Lcom/github/catvod/spider/merge/T/m;->q0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/T/m;
-
-    move-result-object v6
-
-    if-eqz v6, :cond_6c
-
-    const-string v7, "data-original"
-
-    invoke-virtual {v6, v7}, Lcom/github/catvod/spider/merge/T/s;->d(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v2, v7}, Lcom/github/catvod/spider/merge/T/m;->q0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/T/m;
 
     move-result-object v7
 
-    invoke-static {v7}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    if-eqz v7, :cond_6c
 
-    move-result v8
+    const-string v8, "data-original"
 
-    if-eqz v8, :cond_6d
+    invoke-virtual {v7, v8}, Lcom/github/catvod/spider/merge/T/s;->d(Ljava/lang/String;)Ljava/lang/String;
 
-    const-string v7, "src"
+    move-result-object v8
 
-    invoke-virtual {v6, v7}, Lcom/github/catvod/spider/merge/T/s;->d(Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {v8}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
-    move-result-object v7
+    move-result v9
+
+    if-eqz v9, :cond_6d
+
+    const-string v8, "src"
+
+    invoke-virtual {v7, v8}, Lcom/github/catvod/spider/merge/T/s;->d(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v8
 
     goto :goto_6d
 
     :cond_6c
-    move-object v7, v5
+    move-object v8, v6
 
     :cond_6d
     :goto_6d
-    const-string v6, ".module-info-introduction-content"
+    const-string v7, ".module-info-introduction-content"
 
-    invoke-virtual {v2, v6}, Lcom/github/catvod/spider/merge/T/m;->q0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/T/m;
+    invoke-virtual {v2, v7}, Lcom/github/catvod/spider/merge/T/m;->q0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/T/m;
 
-    move-result-object v6
+    move-result-object v7
 
-    if-eqz v6, :cond_7e
+    if-eqz v7, :cond_7e
 
-    invoke-virtual {v6}, Lcom/github/catvod/spider/merge/T/m;->w0()Ljava/lang/String;
+    invoke-virtual {v7}, Lcom/github/catvod/spider/merge/T/m;->w0()Ljava/lang/String;
 
-    move-result-object v6
+    move-result-object v7
 
-    invoke-virtual {v6}, Ljava/lang/String;->trim()Ljava/lang/String;
+    invoke-virtual {v7}, Ljava/lang/String;->trim()Ljava/lang/String;
 
-    move-result-object v6
+    move-result-object v7
 
     goto :goto_7f
 
     :cond_7e
-    move-object v6, v5
+    move-object v7, v6
 
     :goto_7f
-    const-string v8, ".module-info-item"
+    const-string v9, ".module-info-item"
 
-    invoke-virtual {v2, v8}, Lcom/github/catvod/spider/merge/T/m;->p0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/V/g;
+    invoke-virtual {v2, v9}, Lcom/github/catvod/spider/merge/T/m;->p0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/V/g;
 
-    move-result-object v8
+    move-result-object v9
 
-    invoke-virtual {v8}, Ljava/util/AbstractCollection;->iterator()Ljava/util/Iterator;
+    invoke-virtual {v9}, Ljava/util/AbstractCollection;->iterator()Ljava/util/Iterator;
 
-    move-result-object v8
+    move-result-object v9
 
-    move-object v9, v5
+    move-object v10, v6
 
-    move-object v10, v9
+    move-object v11, v10
 
     :cond_8b
     :goto_8b
-    invoke-interface {v8}, Ljava/util/Iterator;->hasNext()Z
+    invoke-interface {v9}, Ljava/util/Iterator;->hasNext()Z
 
-    move-result v11
+    move-result v12
 
-    if-eqz v11, :cond_e4
+    if-eqz v12, :cond_e4
 
-    invoke-interface {v8}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    invoke-interface {v9}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
-    move-result-object v11
+    move-result-object v12
 
-    check-cast v11, Lcom/github/catvod/spider/merge/T/m;
+    check-cast v12, Lcom/github/catvod/spider/merge/T/m;
 
-    const-string v12, ".module-info-item-title"
+    const-string v13, ".module-info-item-title"
 
-    invoke-virtual {v11, v12}, Lcom/github/catvod/spider/merge/T/m;->q0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/T/m;
+    invoke-virtual {v12, v13}, Lcom/github/catvod/spider/merge/T/m;->q0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/T/m;
+
+    move-result-object v14
+
+    if-eqz v14, :cond_a8
+
+    invoke-virtual {v12, v13}, Lcom/github/catvod/spider/merge/T/m;->q0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/T/m;
 
     move-result-object v13
 
-    if-eqz v13, :cond_a8
+    invoke-virtual {v13}, Lcom/github/catvod/spider/merge/T/m;->w0()Ljava/lang/String;
 
-    invoke-virtual {v11, v12}, Lcom/github/catvod/spider/merge/T/m;->q0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/T/m;
+    move-result-object v13
+
+    goto :goto_a9
+
+    :cond_a8
+    move-object v13, v6
+
+    :goto_a9
+    const-string v14, ".module-info-item-content"
+
+    invoke-virtual {v12, v14}, Lcom/github/catvod/spider/merge/T/m;->q0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/T/m;
+
+    move-result-object v15
+
+    if-eqz v15, :cond_be
+
+    invoke-virtual {v12, v14}, Lcom/github/catvod/spider/merge/T/m;->q0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/T/m;
 
     move-result-object v12
 
@@ -1049,223 +1071,251 @@
 
     move-result-object v12
 
-    goto :goto_a9
+    invoke-virtual {v12}, Ljava/lang/String;->trim()Ljava/lang/String;
 
-    :cond_a8
-    move-object v12, v5
-
-    :goto_a9
-    const-string v13, ".module-info-item-content"
-
-    invoke-virtual {v11, v13}, Lcom/github/catvod/spider/merge/T/m;->q0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/T/m;
-
-    move-result-object v14
-
-    if-eqz v14, :cond_be
-
-    invoke-virtual {v11, v13}, Lcom/github/catvod/spider/merge/T/m;->q0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/T/m;
-
-    move-result-object v11
-
-    invoke-virtual {v11}, Lcom/github/catvod/spider/merge/T/m;->w0()Ljava/lang/String;
-
-    move-result-object v11
-
-    invoke-virtual {v11}, Ljava/lang/String;->trim()Ljava/lang/String;
-
-    move-result-object v11
+    move-result-object v12
 
     goto :goto_bf
 
     :cond_be
-    move-object v11, v5
+    move-object v12, v6
 
     :goto_bf
-    const-string v13, "\u5e74\u4efd"
+    const-string v14, "\u5e74\u4efd"
 
-    invoke-virtual {v12, v13}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    invoke-virtual {v13, v14}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
-    move-result v13
+    move-result v14
 
-    if-nez v13, :cond_e2
+    if-nez v14, :cond_e2
 
-    const-string v13, "\u4e0a\u6620"
+    const-string v14, "\u4e0a\u6620"
 
-    invoke-virtual {v12, v13}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    invoke-virtual {v13, v14}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
-    move-result v13
+    move-result v14
 
-    if-eqz v13, :cond_d0
+    if-eqz v14, :cond_d0
 
     goto :goto_e2
 
     :cond_d0
-    const-string v13, "\u4e3b\u6f14"
+    const-string v14, "\u4e3b\u6f14"
 
-    invoke-virtual {v12, v13}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    invoke-virtual {v13, v14}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+
+    move-result v14
+
+    if-nez v14, :cond_e0
+
+    const-string v14, "\u6f14\u5458"
+
+    invoke-virtual {v13, v14}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
     move-result v13
 
-    if-nez v13, :cond_e0
-
-    const-string v13, "\u6f14\u5458"
-
-    invoke-virtual {v12, v13}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
-
-    move-result v12
-
-    if-eqz v12, :cond_8b
+    if-eqz v13, :cond_8b
 
     :cond_e0
-    move-object v10, v11
+    move-object v11, v12
 
     goto :goto_8b
 
     :cond_e2
     :goto_e2
-    move-object v9, v11
+    move-object v10, v12
 
     goto :goto_8b
 
     :cond_e4
-    new-instance v8, Ljava/util/ArrayList;
+    new-instance v9, Ljava/util/ArrayList;
 
-    invoke-direct {v8}, Ljava/util/ArrayList;-><init>()V
+    invoke-direct {v9}, Ljava/util/ArrayList;-><init>()V
 
-    const-string v11, "#y-playList .module-tab-item"
+    const-string v12, "#y-playList .module-tab-item"
 
-    invoke-virtual {v2, v11}, Lcom/github/catvod/spider/merge/T/m;->p0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/V/g;
+    invoke-virtual {v2, v12}, Lcom/github/catvod/spider/merge/T/m;->p0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/V/g;
 
-    move-result-object v11
+    move-result-object v12
 
-    invoke-virtual {v11}, Ljava/util/AbstractCollection;->iterator()Ljava/util/Iterator;
+    invoke-virtual {v12}, Ljava/util/AbstractCollection;->iterator()Ljava/util/Iterator;
 
-    move-result-object v11
+    move-result-object v12
 
     :goto_f3
-    invoke-interface {v11}, Ljava/util/Iterator;->hasNext()Z
+    invoke-interface {v12}, Ljava/util/Iterator;->hasNext()Z
 
-    move-result v12
+    move-result v13
 
-    if-eqz v12, :cond_109
+    if-eqz v13, :cond_109
 
-    invoke-interface {v11}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    invoke-interface {v12}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
-    move-result-object v12
+    move-result-object v13
 
-    check-cast v12, Lcom/github/catvod/spider/merge/T/m;
+    check-cast v13, Lcom/github/catvod/spider/merge/T/m;
 
-    const-string v13, "data-dropdown-value"
+    const-string v14, "data-dropdown-value"
 
-    invoke-virtual {v12, v13}, Lcom/github/catvod/spider/merge/T/s;->d(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v13, v14}, Lcom/github/catvod/spider/merge/T/s;->d(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v12
+    move-result-object v13
 
-    invoke-virtual {v8, v12}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+    invoke-virtual {v9, v13}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
     goto :goto_f3
 
     :cond_109
-    const-string v11, ".module-list.sort-list.tab-list.his-tab-list"
+    const-string v12, ".module-list.sort-list.tab-list.his-tab-list"
 
-    invoke-virtual {v2, v11}, Lcom/github/catvod/spider/merge/T/m;->p0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/V/g;
+    invoke-virtual {v2, v12}, Lcom/github/catvod/spider/merge/T/m;->p0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/V/g;
 
     move-result-object v2
 
-    new-instance v11, Ljava/lang/StringBuilder;
+    new-instance v12, Ljava/util/ArrayList;
 
-    invoke-direct {v11}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v12}, Ljava/util/ArrayList;-><init>()V
 
-    const/4 v12, 0x0
+    new-instance v13, Ljava/util/ArrayList;
 
-    :goto_115
+    invoke-direct {v13}, Ljava/util/ArrayList;-><init>()V
+
+    const/4 v14, 0x0
+
+    :goto_11a
     invoke-virtual {v2}, Ljava/util/ArrayList;->size()I
 
-    move-result v13
+    move-result v15
 
-    const-string v14, "#"
-
-    if-ge v0, v13, :cond_1df
+    if-ge v0, v15, :cond_20b
 
     invoke-virtual {v2, v0}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
 
-    move-result-object v13
+    move-result-object v15
 
-    check-cast v13, Lcom/github/catvod/spider/merge/T/m;
-
-    add-int/lit8 v15, v0, 0x1
+    check-cast v15, Lcom/github/catvod/spider/merge/T/m;
 
     move-object/from16 p1, v2
 
-    new-instance v2, Ljava/util/ArrayList;
+    add-int/lit8 v2, v0, 0x1
 
-    invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
+    new-instance v4, Ljava/util/ArrayList;
 
-    const-string v3, "a.module-play-list-link"
+    invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
 
-    invoke-virtual {v13, v3}, Lcom/github/catvod/spider/merge/T/m;->p0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/V/g;
+    move-object/from16 v16, v6
 
-    move-result-object v3
+    const-string v6, "a.module-play-list-link"
 
-    invoke-virtual {v3}, Ljava/util/AbstractCollection;->iterator()Ljava/util/Iterator;
+    invoke-virtual {v15, v6}, Lcom/github/catvod/spider/merge/T/m;->p0(Ljava/lang/String;)Lcom/github/catvod/spider/merge/V/g;
 
-    move-result-object v3
+    move-result-object v6
 
-    :goto_136
-    invoke-interface {v3}, Ljava/util/Iterator;->hasNext()Z
+    invoke-virtual {v6}, Ljava/util/AbstractCollection;->iterator()Ljava/util/Iterator;
 
-    move-result v13
+    move-result-object v6
 
-    if-eqz v13, :cond_19d
+    :goto_13b
+    invoke-interface {v6}, Ljava/util/Iterator;->hasNext()Z
 
-    invoke-interface {v3}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    move-result v15
 
-    move-result-object v13
+    if-eqz v15, :cond_1cf
 
-    check-cast v13, Lcom/github/catvod/spider/merge/T/m;
+    invoke-interface {v6}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
-    invoke-virtual {v13}, Lcom/github/catvod/spider/merge/T/m;->w0()Ljava/lang/String;
+    move-result-object v15
 
-    move-result-object v16
+    check-cast v15, Lcom/github/catvod/spider/merge/T/m;
 
-    move-object/from16 v17, v3
+    invoke-virtual {v15}, Lcom/github/catvod/spider/merge/T/m;->w0()Ljava/lang/String;
 
-    invoke-virtual/range {v16 .. v16}, Ljava/lang/String;->trim()Ljava/lang/String;
+    move-result-object v17
 
-    move-result-object v3
+    move-object/from16 v18, v6
 
-    move-object/from16 v16, v10
+    invoke-virtual/range {v17 .. v17}, Ljava/lang/String;->trim()Ljava/lang/String;
 
-    const-string v10, "href"
+    move-result-object v6
 
-    invoke-virtual {v13, v10}, Lcom/github/catvod/spider/merge/T/s;->d(Ljava/lang/String;)Ljava/lang/String;
+    move-object/from16 v17, v11
 
-    move-result-object v10
+    const-string v11, "href"
 
-    const-string v13, "/play/"
+    invoke-virtual {v15, v11}, Lcom/github/catvod/spider/merge/T/s;->d(Ljava/lang/String;)Ljava/lang/String;
 
-    invoke-virtual {v10, v13}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    move-result-object v11
+
+    const-string v15, "/play/"
+
+    invoke-virtual {v11, v15}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+
+    move-result v19
+
+    if-nez v19, :cond_166
+
+    move-object/from16 v11, v17
+
+    move-object/from16 v6, v18
+
+    goto :goto_13b
+
+    :cond_166
+    invoke-virtual {v11, v15}, Ljava/lang/String;->indexOf(Ljava/lang/String;)I
+
+    move-result v15
+
+    add-int/lit8 v15, v15, 0x6
+
+    move-object/from16 v19, v10
+
+    const/16 v10, 0x2d
+
+    invoke-virtual {v11, v10, v15}, Ljava/lang/String;->indexOf(II)I
 
     move-result v10
 
-    if-nez v10, :cond_15d
+    invoke-virtual {v11, v3}, Ljava/lang/String;->lastIndexOf(Ljava/lang/String;)I
 
-    goto :goto_198
+    move-result v15
 
-    :cond_15d
-    const-string v10, "[^0-9]"
+    if-ltz v10, :cond_1c7
 
-    invoke-virtual {v3, v10, v5}, Ljava/lang/String;->replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    if-gt v15, v10, :cond_17d
+
+    goto :goto_1c7
+
+    :cond_17d
+    add-int/lit8 v10, v10, 0x1
+
+    invoke-virtual {v11, v10, v15}, Ljava/lang/String;->substring(II)Ljava/lang/String;
+
+    move-result-object v10
+
+    const/16 v11, 0x2d
+
+    invoke-virtual {v10, v11}, Ljava/lang/String;->lastIndexOf(I)I
+
+    move-result v11
+
+    if-gez v11, :cond_18c
+
+    goto :goto_1c7
+
+    :cond_18c
+    add-int/lit8 v11, v11, 0x1
+
+    invoke-virtual {v10, v11}, Ljava/lang/String;->substring(I)Ljava/lang/String;
 
     move-result-object v10
 
     invoke-static {v10}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
-    move-result v13
+    move-result v11
 
-    if-eqz v13, :cond_173
+    if-eqz v11, :cond_1a2
 
-    invoke-virtual {v2}, Ljava/util/ArrayList;->size()I
+    invoke-virtual {v4}, Ljava/util/ArrayList;->size()I
 
     move-result v10
 
@@ -1275,117 +1325,119 @@
 
     move-result-object v10
 
-    :cond_173
-    new-instance v13, Ljava/lang/StringBuilder;
+    :cond_1a2
+    new-instance v11, Ljava/lang/StringBuilder;
 
-    invoke-direct {v13}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v11}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v13, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v11, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    const-string v3, "$"
+    const-string v6, "$"
 
-    invoke-virtual {v13, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v11, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v13, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v11, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    const-string v3, "|"
+    const-string v6, "|"
 
-    invoke-virtual {v13, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v11, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v13, v15}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v11, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v13, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v11, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v13, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v11, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v13}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v11}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v3
+    move-result-object v6
 
-    invoke-virtual {v2, v3}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+    invoke-virtual {v4, v6}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    :goto_198
-    move-object/from16 v10, v16
+    :cond_1c7
+    :goto_1c7
+    move-object/from16 v11, v17
 
-    move-object/from16 v3, v17
+    move-object/from16 v6, v18
 
-    goto :goto_136
+    move-object/from16 v10, v19
 
-    :cond_19d
-    move-object/from16 v16, v10
+    goto/16 :goto_13b
 
-    invoke-virtual {v2}, Ljava/util/ArrayList;->isEmpty()Z
+    :cond_1cf
+    move-object/from16 v19, v10
 
-    move-result v3
+    move-object/from16 v17, v11
 
-    if-nez v3, :cond_1d6
+    invoke-virtual {v4}, Ljava/util/ArrayList;->isEmpty()Z
 
-    invoke-virtual {v8}, Ljava/util/ArrayList;->size()I
+    move-result v6
 
-    move-result v3
+    if-nez v6, :cond_1fe
 
-    if-ge v0, v3, :cond_1b2
+    invoke-virtual {v9}, Ljava/util/ArrayList;->size()I
 
-    invoke-virtual {v8, v0}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+    move-result v6
+
+    if-ge v0, v6, :cond_1e6
+
+    invoke-virtual {v9, v0}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
 
     move-result-object v0
 
     check-cast v0, Ljava/lang/String;
 
-    goto :goto_1b8
+    goto :goto_1ec
 
-    :cond_1b2
+    :cond_1e6
     const-string v0, "\u6e90"
 
     .line 5
-    invoke-static {v0, v15}, Lcom/github/catvod/spider/merge/l/f;->a(Ljava/lang/String;I)Ljava/lang/String;
+    invoke-static {v0, v2}, Lcom/github/catvod/spider/merge/l/f;->a(Ljava/lang/String;I)Ljava/lang/String;
 
     move-result-object v0
 
     .line 6
-    :goto_1b8
-    invoke-virtual {v11}, Ljava/lang/StringBuilder;->length()I
+    :goto_1ec
+    invoke-virtual {v12, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    move-result v3
+    const-string v0, "#"
 
-    if-lez v3, :cond_1c1
-
-    invoke-virtual {v11, v14}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    :cond_1c1
-    invoke-virtual {v11, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    invoke-virtual {v11, v14}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    const-string v0, ","
-
-    invoke-static {v0, v2}, Landroid/text/TextUtils;->join(Ljava/lang/CharSequence;Ljava/lang/Iterable;)Ljava/lang/String;
+    invoke-static {v0, v4}, Landroid/text/TextUtils;->join(Ljava/lang/CharSequence;Ljava/lang/Iterable;)Ljava/lang/String;
 
     move-result-object v0
 
-    invoke-virtual {v11, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v13, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    invoke-virtual {v2}, Ljava/util/ArrayList;->size()I
+    invoke-virtual {v4}, Ljava/util/ArrayList;->size()I
 
     move-result v0
 
-    add-int/2addr v0, v12
+    add-int/2addr v0, v14
 
-    move v12, v0
+    move v14, v0
 
-    :cond_1d6
-    move-object/from16 v3, p0
+    :cond_1fe
+    move-object/from16 v4, p0
+
+    move v0, v2
+
+    move-object/from16 v6, v16
+
+    move-object/from16 v11, v17
+
+    move-object/from16 v10, v19
 
     move-object/from16 v2, p1
 
-    move v0, v15
+    goto/16 :goto_11a
 
-    move-object/from16 v10, v16
+    :cond_20b
+    move-object/from16 v16, v6
 
-    goto/16 :goto_115
+    move-object/from16 v19, v10
 
-    :cond_1df
-    move-object/from16 v16, v10
+    move-object/from16 v17, v11
 
     new-instance v0, Lcom/github/catvod/spider/merge/c/i;
 
@@ -1393,36 +1445,36 @@
 
     invoke-virtual {v0, v1}, Lcom/github/catvod/spider/merge/c/i;->h(Ljava/lang/String;)V
 
-    invoke-static {v4}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    invoke-static {v5}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v2
 
     const-string v3, "\u770b\u770b\u9e2d"
 
-    if-eqz v2, :cond_1f5
+    if-eqz v2, :cond_225
 
     .line 7
     invoke-static {v3, v1}, Lcom/github/catvod/spider/merge/a/h;->a(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v5
 
     .line 8
-    :cond_1f5
-    invoke-virtual {v0, v4}, Lcom/github/catvod/spider/merge/c/i;->i(Ljava/lang/String;)V
+    :cond_225
+    invoke-virtual {v0, v5}, Lcom/github/catvod/spider/merge/c/i;->i(Ljava/lang/String;)V
 
-    invoke-virtual {v0, v7}, Lcom/github/catvod/spider/merge/c/i;->j(Ljava/lang/String;)V
+    invoke-virtual {v0, v8}, Lcom/github/catvod/spider/merge/c/i;->j(Ljava/lang/String;)V
 
-    invoke-virtual {v0, v6}, Lcom/github/catvod/spider/merge/c/i;->f(Ljava/lang/String;)V
+    invoke-virtual {v0, v7}, Lcom/github/catvod/spider/merge/c/i;->f(Ljava/lang/String;)V
 
     invoke-virtual {v0, v3}, Lcom/github/catvod/spider/merge/c/i;->c(Ljava/lang/String;)V
 
-    if-lez v12, :cond_214
+    if-lez v14, :cond_245
 
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v1, v12}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v14}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     const-string v2, "\u96c6"
 
@@ -1430,24 +1482,33 @@
 
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v5
+    move-result-object v6
 
-    :cond_214
-    invoke-virtual {v0, v5}, Lcom/github/catvod/spider/merge/c/i;->m(Ljava/lang/String;)V
+    goto :goto_247
 
-    invoke-virtual {v0, v9}, Lcom/github/catvod/spider/merge/c/i;->o(Ljava/lang/String;)V
+    :cond_245
+    move-object/from16 v6, v16
 
-    move-object/from16 v10, v16
+    :goto_247
+    invoke-virtual {v0, v6}, Lcom/github/catvod/spider/merge/c/i;->m(Ljava/lang/String;)V
 
-    invoke-virtual {v0, v10}, Lcom/github/catvod/spider/merge/c/i;->d(Ljava/lang/String;)V
+    move-object/from16 v10, v19
 
-    invoke-static {v14, v8}, Landroid/text/TextUtils;->join(Ljava/lang/CharSequence;Ljava/lang/Iterable;)Ljava/lang/String;
+    invoke-virtual {v0, v10}, Lcom/github/catvod/spider/merge/c/i;->o(Ljava/lang/String;)V
 
-    move-result-object v1
+    move-object/from16 v11, v17
 
-    invoke-virtual {v0, v1}, Lcom/github/catvod/spider/merge/c/i;->k(Ljava/lang/String;)V
+    invoke-virtual {v0, v11}, Lcom/github/catvod/spider/merge/c/i;->d(Ljava/lang/String;)V
 
-    invoke-virtual {v11}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    const-string v1, "$$$"
+
+    invoke-static {v1, v12}, Landroid/text/TextUtils;->join(Ljava/lang/CharSequence;Ljava/lang/Iterable;)Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v0, v2}, Lcom/github/catvod/spider/merge/c/i;->k(Ljava/lang/String;)V
+
+    invoke-static {v1, v13}, Landroid/text/TextUtils;->join(Ljava/lang/CharSequence;Ljava/lang/Iterable;)Ljava/lang/String;
 
     move-result-object v1
 
@@ -2101,8 +2162,6 @@
     invoke-direct {p1}, Lcom/github/catvod/spider/merge/c/f;-><init>()V
 
     .line 14
-    invoke-virtual {p1}, Lcom/github/catvod/spider/merge/c/f;->e()Lcom/github/catvod/spider/merge/c/f;
-
     invoke-virtual {p1, v2}, Lcom/github/catvod/spider/merge/c/f;->q(Ljava/lang/String;)Lcom/github/catvod/spider/merge/c/f;
 
     invoke-virtual {p1, p2}, Lcom/github/catvod/spider/merge/c/f;->c(Ljava/util/Map;)Lcom/github/catvod/spider/merge/c/f;
