@@ -154,7 +154,7 @@ public class KanKanYa extends Spider {
         Element last = doc.selectFirst("a[title=尾页]");
         if (last != null) {
             String href = last.attr("href");
-            java.util.regex.Matcher m = java.util.regex.Pattern.compile(".*(\\d+)\\.html$").matcher(href);
+            java.util.regex.Matcher m = java.util.regex.Pattern.compile("(\\d+)---\\.html$").matcher(href);
             if (m.find()) {
                 int p = safeInt(m.group(1), 1);
                 if (p > 0) return p;
