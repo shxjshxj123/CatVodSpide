@@ -135,14 +135,31 @@ public class KanKanYa extends Spider {
 
     @Override
     public String categoryContent(String tid, String pg, boolean filter, HashMap<String, String> extend) throws Exception {
-        int page = TextUtils.isEmpty(pg) ? 0 : Math.max(0, Integer.parseInt(pg) - 1);
-        String url;
-        if ("dianying".equals(tid)) url = BASE + "/show/dianying-----------" + page + ".html";
-        else if ("juji".equals(tid)) url = BASE + "/show/juji-----------" + page + ".html";
-        else if ("zongyi".equals(tid)) url = BASE + "/show/zongyi-----------" + page + ".html";
-        else url = BASE + "/show/dongman-----------" + page + ".html";
-        List<Vod> list = parseList(get(url, BASE + "/"));
-        return Result.get().page(1, 1, 0, 1).vod(list).string();
+        int page = safeInt(pg, 1);
+        if (page < 1) page = 1;
+        // show 页翻页 URL 固定为 /show/{tid}--------{page}---.html（6 连字符 + 页码 + 3 连字符），
+        // 之前用的 7 连字符 + 尾无连字符 格式站点不识别，会静默回退到第 1 页（各页内容相同）
+        String t = "juji".equals(tid) ? "juji" : "zongyi".equals(tid) ? "zongyi" : "dongman".equals(tid) ? "dongman" : "dianying";
+        String url = BASE + "/show/" + t + "--------" + page + "---.html";
+        String html = get(url, BASE + "/");
+        List<Vod> list = parseList(html);
+        int pagecount = lastPage(html, t);
+        return Result.get().page(page, pagecount, 0, 0).vod(list).string();
+    }
+
+    // 从分类页 pager 的 尾页 链接提取总页数；无 pager（单页分类）返回 1
+    private int lastPage(String html, String t) {
+        Document doc = Jsoup.parse(html);
+        Element last = doc.selectFirst("a[title=尾页]");
+        if (last != null) {
+            String href = last.attr("href");
+            int dash = href.lastIndexOf("-");
+            int s = dash > 0 ? dash + 1 : 0;
+            int e = href.lastIndexOf(".html");
+            if (e < 0) e = href.length();
+            return safeInt(href.substring(s, e), 1);
+        }
+        return 1;
     }
 
     @Override
@@ -242,9 +259,15 @@ public class KanKanYa extends Spider {
     }
 
     private String searchContent(String key, String pg) throws Exception {
-        String target = BASE + "/index.php?searchword=" + URLEncoder.encode(key, "UTF-8");
-        List<Vod> list = parseList(get(target, BASE + "/"));
-        return Result.get().page(1, 1, 0, 1).vod(list).string();
+        int page = safeInt(pg, 1);
+        if (page < 1) page = 1;
+        // 站点搜索走 /search/{key}-------------{page}.html（key + 11 连字符 + 页码），
+        // 之前的 /index.php?searchword= 会忽略关键词、返回站点首页数据（不同搜索词结果相同）
+        String enc = URLEncoder.encode(key, "UTF-8");
+        String url = BASE + "/search/" + enc + "-------------" + page + ".html";
+        String html = get(url, BASE + "/");
+        List<Vod> list = parseList(html);
+        return Result.get().page(page, 0, 0, 0).vod(list).string();
     }
 
     @Override
@@ -378,17 +401,25 @@ public class KanKanYa extends Spider {
     private List<Vod> parseList(String html) {
         List<Vod> list = new ArrayList<>();
         Document doc = Jsoup.parse(html);
+        Map<String, Boolean> seen = new LinkedHashMap<>();
         for (Element card : doc.select("a[href*=detail]")) {
             try {
                 String href = card.attr("href");
                 if (!href.matches("/detail/[A-Za-z0-9]+\\.html")) continue;
                 String id = href.replaceAll("^/detail/([A-Za-z0-9]+)\\.html$", "$1");
+                if (seen.containsKey(id)) continue;
+                // 分类卡片标题在 a 的 title 属性；搜索卡片标题在内部 strong，a 上无 title
                 String name = card.attr("title");
                 if (TextUtils.isEmpty(name)) {
-                    Element titleEl = card.selectFirst(".module-poster-item-title");
+                    Element strong = card.selectFirst("strong");
+                    name = strong != null ? strong.text().trim() : "";
+                }
+                if (TextUtils.isEmpty(name)) {
+                    Element titleEl = card.selectFirst(".module-poster-item-title, .module-card-item-title");
                     name = titleEl != null ? titleEl.text().trim() : "";
                 }
                 if (TextUtils.isEmpty(name)) continue;
+                seen.put(id, true);
                 String pic = "";
                 Element img = card.selectFirst("img[data-original]");
                 if (img != null) pic = img.attr("data-original");
