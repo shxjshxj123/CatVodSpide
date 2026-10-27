@@ -148,16 +148,17 @@ public class KanKanYa extends Spider {
     }
 
     // 从分类页 pager 的 尾页 链接提取总页数；无 pager（单页分类）返回 1
+    // 尾页 href 形如 /show/dianying--------149---.html，页码为尾部 3 连字符前的数字
     private int lastPage(String html, String t) {
         Document doc = Jsoup.parse(html);
         Element last = doc.selectFirst("a[title=尾页]");
         if (last != null) {
             String href = last.attr("href");
-            int dash = href.lastIndexOf("-");
-            int s = dash > 0 ? dash + 1 : 0;
-            int e = href.lastIndexOf(".html");
-            if (e < 0) e = href.length();
-            return safeInt(href.substring(s, e), 1);
+            java.util.regex.Matcher m = java.util.regex.Pattern.compile(".*(\\d+)\\.html$").matcher(href);
+            if (m.find()) {
+                int p = safeInt(m.group(1), 1);
+                if (p > 0) return p;
+            }
         }
         return 1;
     }
@@ -398,18 +399,23 @@ public class KanKanYa extends Spider {
 
     // ==================== 列表解析 ====================
 
+    // 卡片容器有两种结构：分类页 a.module-poster-item（单 a，title + img 都在其上）；
+    // 搜索页 div.module-card-item（内含 poster a[img] 与 title a[strong] 两个 a）。
+    // 统一以容器为单位解析，name 取 a@title || strong，pic 取容器内 img[data-original]
     private List<Vod> parseList(String html) {
         List<Vod> list = new ArrayList<>();
         Document doc = Jsoup.parse(html);
         Map<String, Boolean> seen = new LinkedHashMap<>();
-        for (Element card : doc.select("a[href*=detail]")) {
+        for (Element card : doc.select("a.module-poster-item, .module-card-item")) {
             try {
-                String href = card.attr("href");
+                Element link = card.selectFirst("a[href*=detail]");
+                if (link == null) link = card;
+                String href = link.attr("href");
                 if (!href.matches("/detail/[A-Za-z0-9]+\\.html")) continue;
                 String id = href.replaceAll("^/detail/([A-Za-z0-9]+)\\.html$", "$1");
                 if (seen.containsKey(id)) continue;
-                // 分类卡片标题在 a 的 title 属性；搜索卡片标题在内部 strong，a 上无 title
                 String name = card.attr("title");
+                if (TextUtils.isEmpty(name) && link != null) name = link.attr("title");
                 if (TextUtils.isEmpty(name)) {
                     Element strong = card.selectFirst("strong");
                     name = strong != null ? strong.text().trim() : "";
